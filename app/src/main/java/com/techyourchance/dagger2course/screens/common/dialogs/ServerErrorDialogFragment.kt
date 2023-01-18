@@ -9,11 +9,11 @@ import com.techyourchance.dagger2course.R
 class ServerErrorDialogFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return AlertDialog.Builder(activity).let {
-            it.setTitle(R.string.server_error_dialog_title)
-            it.setMessage(R.string.server_error_dialog_message)
-            it.setPositiveButton(R.string.server_error_dialog_button_caption) { _, _ -> dismiss() }
-            it.create()
+        return with(AlertDialog.Builder(activity)){
+            setTitle(R.string.server_error_dialog_title)
+            setMessage(R.string.server_error_dialog_message)
+            setPositiveButton(R.string.server_error_dialog_button_caption) { _, _ -> dismiss() }
+            create()
         }
     }
 
