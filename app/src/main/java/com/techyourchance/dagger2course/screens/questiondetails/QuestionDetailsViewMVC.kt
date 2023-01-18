@@ -8,33 +8,29 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.IdRes
+import androidx.annotation.LayoutRes
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.techyourchance.dagger2course.R
 import com.techyourchance.dagger2course.screens.common.toolbar.MyToolbar
+import com.techyourchance.dagger2course.screens.common.viewsmvc.BaseViewMVC
 
 class QuestionDetailsViewMVC(
-    private val layoutInflater: LayoutInflater,
-    private val parent: ViewGroup?
-) {
+    layoutInflater: LayoutInflater,
+    parent: ViewGroup?,
+    @LayoutRes layoutId: Int = R.layout.layout_question_details
+) : BaseViewMVC<QuestionDetailsViewMVC.Listener>(layoutInflater, parent, layoutId) {
 
     interface Listener {
         fun onBackClicked()
     }
 
-    val rootView: View = layoutInflater.inflate(R.layout.layout_question_details, parent, false)
-    private val context: Context get() = rootView.context
-
-    private val toolbar: MyToolbar
+    private val toolbar: MyToolbar = findViewById(R.id.toolbar)
     private val swipeRefresh: SwipeRefreshLayout
-    private val txtQuestionBody: TextView
-
-    private val listeners = HashSet<Listener>()
+    private val txtQuestionBody: TextView = findViewById(R.id.txt_question_body)
 
     init {
-        txtQuestionBody = findViewById(R.id.txt_question_body)
 
         // init toolbar
-        toolbar = findViewById(R.id.toolbar)
         toolbar.setNavigateUpListener {
             for (listener in listeners)
                 listener.onBackClicked()
@@ -45,8 +41,6 @@ class QuestionDetailsViewMVC(
         swipeRefresh.isEnabled = false
 
     }
-
-    private fun <T : View> findViewById(@IdRes id: Int): T = rootView.findViewById(id)
 
     fun bindQuestionBody(questionBody: String) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -76,13 +70,5 @@ class QuestionDetailsViewMVC(
 
     fun hideProgressIndication() {
         swipeRefresh.isRefreshing = false
-    }
-
-    fun registerListener(listener: Listener) {
-        listeners.add(listener)
-    }
-
-    fun unregisterListener(listener: Listener) {
-        listeners.remove(listener)
     }
 }

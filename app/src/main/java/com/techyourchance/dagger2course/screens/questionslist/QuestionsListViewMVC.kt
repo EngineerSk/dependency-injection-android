@@ -1,38 +1,33 @@
 package com.techyourchance.dagger2course.screens.questionslist
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.annotation.IdRes
+import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.techyourchance.dagger2course.R
 import com.techyourchance.dagger2course.questions.Question
+import com.techyourchance.dagger2course.screens.common.viewsmvc.BaseViewMVC
 
 class QuestionsListViewMVC(
-    private val layoutInflater: LayoutInflater,
-    private val parent: ViewGroup?
-) {
+    layoutInflater: LayoutInflater,
+    parent: ViewGroup?,
+    @LayoutRes layoutId: Int = R.layout.layout_questions_list
+) : BaseViewMVC<QuestionsListViewMVC.Listener>(layoutInflater, parent, layoutId) {
 
     interface Listener {
         fun onRefreshClicked()
         fun onQuestionClicked(clickedQuestion: Question)
     }
 
-    private val swipeRefresh: SwipeRefreshLayout
+    private val swipeRefresh: SwipeRefreshLayout = this.findViewById(R.id.swipeRefresh)
     private val recyclerView: RecyclerView
     private val questionsAdapter: QuestionsAdapter
 
-    val rootView: View = layoutInflater.inflate(R.layout.layout_questions_list, parent, false)
-    private val context: Context = rootView.context
-
-    private val listeners = HashSet<Listener>()
-
     init {
-        swipeRefresh = this.findViewById(R.id.swipeRefresh)
         swipeRefresh.setOnRefreshListener {
             for (listener in listeners)
                 listener.onRefreshClicked()
@@ -49,7 +44,6 @@ class QuestionsListViewMVC(
 
     }
 
-    private fun <T : View?> findViewById(@IdRes id: Int): T = rootView.findViewById<T>(id);
 
     fun showProgressIndication() {
         swipeRefresh.isRefreshing = true
@@ -59,14 +53,6 @@ class QuestionsListViewMVC(
         if (swipeRefresh.isRefreshing) {
             swipeRefresh.isRefreshing = false
         }
-    }
-
-    fun registerListener(listener: Listener) {
-        listeners.add(listener)
-    }
-
-    fun unregisterListener(listener: Listener) {
-        listeners.remove(listener);
     }
 
     fun bindData(questions: List<Question>) {
