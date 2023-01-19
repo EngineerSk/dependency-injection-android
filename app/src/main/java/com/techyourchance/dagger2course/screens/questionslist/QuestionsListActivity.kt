@@ -7,6 +7,7 @@ import com.techyourchance.dagger2course.Constants
 import com.techyourchance.dagger2course.networking.StackoverflowApi
 import com.techyourchance.dagger2course.questions.FetchQuestionsUseCase
 import com.techyourchance.dagger2course.questions.Question
+import com.techyourchance.dagger2course.screens.common.dialogs.DialogsNavigator
 import com.techyourchance.dagger2course.screens.common.dialogs.ServerErrorDialogFragment
 import com.techyourchance.dagger2course.screens.questiondetails.QuestionDetailsActivity
 import kotlinx.coroutines.*
@@ -19,6 +20,7 @@ class QuestionsListActivity : AppCompatActivity(), QuestionsListViewMVC.Listener
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     private lateinit var questionsListViewMVC: QuestionsListViewMVC
     private lateinit var fetchQuestionsUseCase: FetchQuestionsUseCase
+    private lateinit var dialogsNavigator: DialogsNavigator
 
     private var isDataLoaded = false
 
@@ -26,6 +28,7 @@ class QuestionsListActivity : AppCompatActivity(), QuestionsListViewMVC.Listener
         super.onCreate(savedInstanceState)
         questionsListViewMVC = QuestionsListViewMVC(LayoutInflater.from(this), null)
         setContentView(questionsListViewMVC.rootView)
+        dialogsNavigator=DialogsNavigator(supportFragmentManager)
         // init pull-down-to-refresh
         // init retrofit
         fetchQuestionsUseCase = FetchQuestionsUseCase()
@@ -65,9 +68,7 @@ class QuestionsListActivity : AppCompatActivity(), QuestionsListViewMVC.Listener
     }
 
     private fun onFetchFailed() {
-        supportFragmentManager.beginTransaction()
-            .add(ServerErrorDialogFragment.newInstance(), null)
-            .commitAllowingStateLoss()
+        dialogsNavigator.showServerErrorDialog()
     }
 
     override fun onRefreshClicked() {
