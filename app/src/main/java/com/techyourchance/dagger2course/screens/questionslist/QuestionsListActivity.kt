@@ -3,17 +3,11 @@ package com.techyourchance.dagger2course.screens.questionslist
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
-import com.techyourchance.dagger2course.Constants
-import com.techyourchance.dagger2course.networking.StackoverflowApi
 import com.techyourchance.dagger2course.questions.FetchQuestionsUseCase
 import com.techyourchance.dagger2course.questions.Question
+import com.techyourchance.dagger2course.screens.common.ScreensNavigator
 import com.techyourchance.dagger2course.screens.common.dialogs.DialogsNavigator
-import com.techyourchance.dagger2course.screens.common.dialogs.ServerErrorDialogFragment
-import com.techyourchance.dagger2course.screens.questiondetails.QuestionDetailsActivity
 import kotlinx.coroutines.*
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import java.util.*
 
 class QuestionsListActivity : AppCompatActivity(), QuestionsListViewMVC.Listener {
 
@@ -21,6 +15,7 @@ class QuestionsListActivity : AppCompatActivity(), QuestionsListViewMVC.Listener
     private lateinit var questionsListViewMVC: QuestionsListViewMVC
     private lateinit var fetchQuestionsUseCase: FetchQuestionsUseCase
     private lateinit var dialogsNavigator: DialogsNavigator
+    private lateinit var screensNavigator: ScreensNavigator
 
     private var isDataLoaded = false
 
@@ -28,7 +23,8 @@ class QuestionsListActivity : AppCompatActivity(), QuestionsListViewMVC.Listener
         super.onCreate(savedInstanceState)
         questionsListViewMVC = QuestionsListViewMVC(LayoutInflater.from(this), null)
         setContentView(questionsListViewMVC.rootView)
-        dialogsNavigator=DialogsNavigator(supportFragmentManager)
+        dialogsNavigator = DialogsNavigator(supportFragmentManager)
+        screensNavigator = ScreensNavigator(this)
         // init pull-down-to-refresh
         // init retrofit
         fetchQuestionsUseCase = FetchQuestionsUseCase()
@@ -76,6 +72,6 @@ class QuestionsListActivity : AppCompatActivity(), QuestionsListViewMVC.Listener
     }
 
     override fun onQuestionClicked(clickedQuestion: Question) {
-        QuestionDetailsActivity.start(this, clickedQuestion.id)
+        screensNavigator.toQuestionDetails(clickedQuestion.id)
     }
 }
