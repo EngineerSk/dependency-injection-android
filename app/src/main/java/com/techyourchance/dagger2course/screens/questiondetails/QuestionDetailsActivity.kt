@@ -33,10 +33,9 @@ class QuestionDetailsActivity : BaseActivity(), QuestionDetailsViewMVC.Listener 
         // init retrofit
         fetchQuestionDetailsUseCase = compositionRoot.fetchQuestionDetailsUseCase
 
-        dialogsNavigator = DialogsNavigator(supportFragmentManager)
+        dialogsNavigator = compositionRoot.dialogsNavigator
 
-        screensNavigator = ScreensNavigator(this)
-
+        screensNavigator = compositionRoot.screensNavigator
         // retrieve question ID passed from outside
         questionId = intent.extras!!.getString(EXTRA_QUESTION_ID)!!
     }

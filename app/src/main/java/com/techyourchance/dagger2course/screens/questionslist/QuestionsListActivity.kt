@@ -2,8 +2,6 @@ package com.techyourchance.dagger2course.screens.questionslist
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import androidx.appcompat.app.AppCompatActivity
-import com.techyourchance.dagger2course.MyApplication
 import com.techyourchance.dagger2course.questions.FetchQuestionsUseCase
 import com.techyourchance.dagger2course.questions.Question
 import com.techyourchance.dagger2course.screens.common.ScreensNavigator
@@ -25,8 +23,8 @@ class QuestionsListActivity : BaseActivity(), QuestionsListViewMVC.Listener {
         super.onCreate(savedInstanceState)
         questionsListViewMVC = QuestionsListViewMVC(LayoutInflater.from(this), null)
         setContentView(questionsListViewMVC.rootView)
-        dialogsNavigator = DialogsNavigator(supportFragmentManager)
-        screensNavigator = ScreensNavigator(this)
+        dialogsNavigator = compositionRoot.dialogsNavigator
+        screensNavigator = compositionRoot.screensNavigator
         // init pull-down-to-refresh
         // init retrofit
         fetchQuestionsUseCase = compositionRoot.fetchQuestionsUseCase
