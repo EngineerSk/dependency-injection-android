@@ -30,7 +30,7 @@ class QuestionDetailsActivity : AppCompatActivity(), QuestionDetailsViewMVC.List
         questionDetailsViewMVC = QuestionDetailsViewMVC(layoutInflater, null)
         setContentView(questionDetailsViewMVC.rootView)
         // init retrofit
-        fetchQuestionDetailsUseCase = FetchQuestionDetailsUseCase((application as MyApplication).stackoverflowApi)
+        fetchQuestionDetailsUseCase = (application as MyApplication).fetchQuestionDetailsUseCase
 
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
 

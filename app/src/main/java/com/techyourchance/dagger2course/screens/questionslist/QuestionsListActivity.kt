@@ -28,7 +28,7 @@ class QuestionsListActivity : AppCompatActivity(), QuestionsListViewMVC.Listener
         screensNavigator = ScreensNavigator(this)
         // init pull-down-to-refresh
         // init retrofit
-        fetchQuestionsUseCase = FetchQuestionsUseCase((application as MyApplication).stackoverflowApi)
+        fetchQuestionsUseCase = (application as MyApplication).fetchQuestionsUseCase
     }
 
     override fun onStart() {
