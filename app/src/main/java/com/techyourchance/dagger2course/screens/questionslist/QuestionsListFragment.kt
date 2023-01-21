@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import com.techyourchance.dagger2course.questions.FetchQuestionsUseCase
 import com.techyourchance.dagger2course.questions.Question
 import com.techyourchance.dagger2course.screens.common.ScreensNavigator
-import com.techyourchance.dagger2course.screens.common.activities.BaseActivity
 import com.techyourchance.dagger2course.screens.common.dialogs.DialogsNavigator
 import com.techyourchance.dagger2course.screens.common.fragments.BaseFragment
 import kotlinx.coroutines.*
@@ -39,7 +38,7 @@ class QuestionsListFragment : BaseFragment(), QuestionsListViewMVC.Listener {
         savedInstanceState: Bundle?
     ): View {
         questionsListViewMVC =
-            QuestionsListViewMVC(LayoutInflater.from(requireContext()), container)
+            compositionRoot.mvcViewsFactory.newQuestionsListViewMVC(container)
         return questionsListViewMVC.rootView
     }
 
