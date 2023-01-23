@@ -23,12 +23,8 @@ class QuestionsListFragment : BaseFragment(), QuestionsListViewMVC.Listener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-//        setContentView(questionsListViewMVC.rootView)
         dialogsNavigator = compositionRoot.dialogsNavigator
         screensNavigator = compositionRoot.screensNavigator
-        // init pull-down-to-refresh
-        // init retrofit
         fetchQuestionsUseCase = compositionRoot.fetchQuestionsUseCase
     }
 

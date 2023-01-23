@@ -13,7 +13,7 @@ class QuestionDetailsActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_frame)
-        // init retrofit
+
         if (savedInstanceState == null) {
             questionId = intent.extras!!.getString(EXTRA_QUESTION_ID)!!
             supportFragmentManager.beginTransaction()
@@ -23,7 +23,6 @@ class QuestionDetailsActivity : BaseActivity() {
                     }
                 }).commit()
         }
-        // retrieve question ID passed from outside
     }
 
     companion object {

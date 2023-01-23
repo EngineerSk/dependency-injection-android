@@ -10,7 +10,7 @@ class ViewMVCFactory(private val layoutInflater: LayoutInflater) {
     fun newQuestionsListViewMVC(container: ViewGroup?): QuestionsListViewMVC =
         QuestionsListViewMVC(layoutInflater, container)
 
-    fun newQuestionDetailsViewMVC(container: ViewGroup?):QuestionDetailsViewMVC =
+    fun newQuestionDetailsViewMVC(container: ViewGroup?): QuestionDetailsViewMVC =
         QuestionDetailsViewMVC(layoutInflater, container)
 
 }
