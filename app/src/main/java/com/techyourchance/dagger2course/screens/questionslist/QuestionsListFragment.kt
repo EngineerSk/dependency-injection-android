@@ -42,10 +42,6 @@ class QuestionsListFragment : BaseFragment(), QuestionsListViewMVC.Listener {
         return questionsListViewMVC.rootView
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
-
     override fun onStart() {
         super.onStart()
         questionsListViewMVC.registerListener(this)
