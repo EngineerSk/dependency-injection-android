@@ -8,7 +8,7 @@ import kotlinx.coroutines.withContext
 class FetchQuestionDetailsUseCase(private val stackoverflowApi: StackoverflowApi) {
 
     sealed class Result {
-        class Success(val questionText: String) : Result()
+        data class Success(val questionText: String) : Result()
         object Failure : Result()
     }
 

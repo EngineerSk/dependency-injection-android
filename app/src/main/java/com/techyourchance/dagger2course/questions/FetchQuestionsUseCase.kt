@@ -4,11 +4,10 @@ import com.techyourchance.dagger2course.networking.StackoverflowApi
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import retrofit2.Retrofit
 
 class FetchQuestionsUseCase(private val stackoverflowApi: StackoverflowApi) {
     sealed class Result {
-        class Success(val questions: List<Question>) : Result()
+        data class Success(val questions: List<Question>) : Result()
         object Failure : Result()
     }
 
