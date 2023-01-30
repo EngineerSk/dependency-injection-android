@@ -9,30 +9,28 @@ import com.techyourchance.dagger2course.questions.FetchQuestionDetailsUseCase
 import com.techyourchance.dagger2course.screens.common.ScreensNavigator
 import com.techyourchance.dagger2course.screens.common.dialogs.DialogsNavigator
 import com.techyourchance.dagger2course.screens.common.fragments.BaseFragment
+import com.techyourchance.dagger2course.screens.common.viewsmvc.ViewMVCFactory
 import kotlinx.coroutines.*
 
 class QuestionDetailsFragment : BaseFragment(), QuestionDetailsViewMVC.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
-    private lateinit var questionDetailsViewMVC: QuestionDetailsViewMVC
+    lateinit var viewMVCFactory: ViewMVCFactory
 
-    private lateinit var fetchQuestionDetailsUseCase: FetchQuestionDetailsUseCase
+    lateinit var fetchQuestionDetailsUseCase: FetchQuestionDetailsUseCase
 
-    private lateinit var dialogsNavigator: DialogsNavigator
+    lateinit var dialogsNavigator: DialogsNavigator
 
-    private lateinit var screensNavigator: ScreensNavigator
+    lateinit var screensNavigator: ScreensNavigator
 
     private lateinit var questionId: String
 
+    private lateinit var questionDetailsViewMVC: QuestionDetailsViewMVC
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        fetchQuestionDetailsUseCase = compositionRoot.fetchQuestionDetailsUseCase
-
-        dialogsNavigator = compositionRoot.dialogsNavigator
-
-        screensNavigator = compositionRoot.screensNavigator
-
+        injector.inject(this)
         questionId = arguments?.getString(
             QuestionDetailsActivity.EXTRA_QUESTION_ID
         )!!
@@ -44,8 +42,7 @@ class QuestionDetailsFragment : BaseFragment(), QuestionDetailsViewMVC.Listener 
         savedInstanceState: Bundle?
     ): View {
         Log.d("questionDetailsViewMVC", "onCreateView: called")
-        questionDetailsViewMVC =
-            compositionRoot.mvcViewsFactory.newQuestionDetailsViewMVC(container)
+        questionDetailsViewMVC = viewMVCFactory.newQuestionDetailsViewMVC(container)
         return questionDetailsViewMVC.rootView
     }
 
