@@ -9,7 +9,7 @@ import dagger.Provides
 @Module
 class ActivityModule(
     private val activity: AppCompatActivity,
-    private val appCompositionRoot: AppCompositionRoot
+    private val appComponent: AppComponent
 ) {
 
     private val screensNavigator by lazy {
@@ -20,7 +20,7 @@ class ActivityModule(
     fun activity() = activity
 
     @Provides
-    fun screensNavigator(activity: AppCompatActivity) = screensNavigator
+    fun screensNavigator() = screensNavigator
 
     @Provides
     fun fragmentManager() = activity.supportFragmentManager
@@ -29,5 +29,5 @@ class ActivityModule(
     fun layoutInflater(): LayoutInflater = LayoutInflater.from(activity)
 
     @Provides
-    fun stackoverflowApi() = appCompositionRoot.stackoverflowApi
+    fun stackoverflowApi() = appComponent.stackoverflowApi()
 }
