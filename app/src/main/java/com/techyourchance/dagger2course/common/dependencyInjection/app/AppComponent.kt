@@ -1,4 +1,4 @@
-package com.techyourchance.dagger2course.common.dependencyInjection
+package com.techyourchance.dagger2course.common.dependencyInjection.app
 
 import com.techyourchance.dagger2course.networking.StackoverflowApi
 import dagger.Component

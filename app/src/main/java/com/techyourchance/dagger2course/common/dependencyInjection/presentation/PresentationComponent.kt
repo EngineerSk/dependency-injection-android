@@ -1,4 +1,4 @@
-package com.techyourchance.dagger2course.common.dependencyInjection
+package com.techyourchance.dagger2course.common.dependencyInjection.presentation
 
 import com.techyourchance.dagger2course.questions.FetchQuestionDetailsUseCase
 import com.techyourchance.dagger2course.questions.FetchQuestionsUseCase

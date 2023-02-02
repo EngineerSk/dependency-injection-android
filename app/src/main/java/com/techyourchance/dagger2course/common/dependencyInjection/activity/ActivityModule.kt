@@ -1,7 +1,8 @@
-package com.techyourchance.dagger2course.common.dependencyInjection
+package com.techyourchance.dagger2course.common.dependencyInjection.activity
 
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
+import com.techyourchance.dagger2course.common.dependencyInjection.app.AppComponent
 import com.techyourchance.dagger2course.screens.common.ScreensNavigator
 import dagger.Module
 import dagger.Provides
