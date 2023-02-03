@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.techyourchance.dagger2course.common.dependencyInjection.Service
 import com.techyourchance.dagger2course.questions.FetchQuestionsUseCase
 import com.techyourchance.dagger2course.questions.Question
 import com.techyourchance.dagger2course.screens.common.ScreensNavigator
@@ -12,20 +11,17 @@ import com.techyourchance.dagger2course.screens.common.dialogs.DialogsNavigator
 import com.techyourchance.dagger2course.screens.common.fragments.BaseFragment
 import com.techyourchance.dagger2course.screens.common.viewsmvc.ViewMVCFactory
 import kotlinx.coroutines.*
+import javax.inject.Inject
 
 class QuestionsListFragment : BaseFragment(), QuestionsListViewMVC.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     private lateinit var questionsListViewMVC: QuestionsListViewMVC
 
-    @field:Service
-    private lateinit var fetchQuestionsUseCase: FetchQuestionsUseCase
-    @field:Service
-    private lateinit var dialogsNavigator: DialogsNavigator
-    @field:Service
-    private lateinit var screensNavigator: ScreensNavigator
-    @field:Service
-    private lateinit var viewMVCFactory: ViewMVCFactory
+    @Inject lateinit var fetchQuestionsUseCase: FetchQuestionsUseCase
+    @Inject lateinit var dialogsNavigator: DialogsNavigator
+    @Inject lateinit var screensNavigator: ScreensNavigator
+    @Inject lateinit var viewMVCFactory: ViewMVCFactory
 
     private var isDataLoaded = false
 

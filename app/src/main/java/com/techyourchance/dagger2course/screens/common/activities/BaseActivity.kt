@@ -2,7 +2,6 @@ package com.techyourchance.dagger2course.screens.common.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import com.techyourchance.dagger2course.MyApplication
-import com.techyourchance.dagger2course.common.dependencyInjection.Injector
 import com.techyourchance.dagger2course.common.dependencyInjection.activity.ActivityComponent
 import com.techyourchance.dagger2course.common.dependencyInjection.activity.ActivityModule
 import com.techyourchance.dagger2course.common.dependencyInjection.activity.DaggerActivityComponent
@@ -24,5 +23,5 @@ open class BaseActivity : AppCompatActivity() {
             .build()
     }
 
-    protected val injector get() = Injector(presentationComponent)
+    protected val injector get() = presentationComponent
 }
