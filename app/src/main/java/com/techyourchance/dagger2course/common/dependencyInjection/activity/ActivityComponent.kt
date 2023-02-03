@@ -1,13 +1,11 @@
 package com.techyourchance.dagger2course.common.dependencyInjection.activity
 
-import com.techyourchance.dagger2course.common.dependencyInjection.app.AppComponent
 import com.techyourchance.dagger2course.common.dependencyInjection.presentation.PresentationComponent
 import com.techyourchance.dagger2course.common.dependencyInjection.presentation.PresentationModule
-import dagger.Component
+import dagger.Subcomponent
 
 @ActivityScope
-@Component(
-    dependencies = [AppComponent::class],
+@Subcomponent(
     modules = [ActivityModule::class]
 )
 interface ActivityComponent {
