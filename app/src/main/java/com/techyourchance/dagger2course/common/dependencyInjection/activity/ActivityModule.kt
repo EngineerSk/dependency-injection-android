@@ -13,15 +13,12 @@ class ActivityModule(
     private val appComponent: AppComponent
 ) {
 
-    private val screensNavigator by lazy {
-        ScreensNavigator(activity)
-    }
-
     @Provides
     fun activity() = activity
 
     @Provides
-    fun screensNavigator() = screensNavigator
+    @ActivityScope
+    fun screensNavigator(activity: AppCompatActivity):ScreensNavigator = ScreensNavigator(activity)
 
     @Provides
     fun fragmentManager() = activity.supportFragmentManager

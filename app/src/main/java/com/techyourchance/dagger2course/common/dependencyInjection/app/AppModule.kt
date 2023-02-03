@@ -1,5 +1,6 @@
 package com.techyourchance.dagger2course.common.dependencyInjection.app
 
+import android.app.Application
 import com.techyourchance.dagger2course.Constants
 import com.techyourchance.dagger2course.networking.StackoverflowApi
 import dagger.Module
@@ -8,20 +9,18 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
-class AppModule {
+class AppModule (private val application: Application){
 
-    private val retrofit: Retrofit by lazy {
-        Retrofit.Builder().baseUrl(Constants.BASE_URL)
+    @AppScope
+    @Provides
+    fun retrofit(): Retrofit = Retrofit.Builder().baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create()).build()
-    }
 
-    val stackoverflowApi: StackoverflowApi by lazy {
+    @Provides
+    fun application() = application
+
+    @AppScope
+    @Provides
+    fun stackoverflowApi(retrofit: Retrofit): StackoverflowApi =
         retrofit.create(StackoverflowApi::class.java)
-    }
-
-    @Provides
-    fun stackoverflowApi() = stackoverflowApi
-
-    @Provides
-    fun retrofit() = retrofit
 }
