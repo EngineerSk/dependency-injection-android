@@ -2,6 +2,7 @@ package com.techyourchance.dagger2course.common.dependencyInjection.activity
 
 import com.techyourchance.dagger2course.common.dependencyInjection.presentation.PresentationComponent
 import com.techyourchance.dagger2course.common.dependencyInjection.presentation.PresentationModule
+import com.techyourchance.dagger2course.common.dependencyInjection.presentation.UseCasesModule
 import dagger.Subcomponent
 
 @ActivityScope
@@ -9,5 +10,8 @@ import dagger.Subcomponent
     modules = [ActivityModule::class]
 )
 interface ActivityComponent {
-    fun newPresentationComponent(presentationModule: PresentationModule): PresentationComponent
+    fun newPresentationComponent(
+        presentationModule: PresentationModule,
+        useCasesModule: UseCasesModule
+    ): PresentationComponent
 }
